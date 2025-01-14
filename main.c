@@ -40,18 +40,16 @@ void displayFunc() {
                   (double)(phi[i]->state == EATING),
                   (double)(phi[i]->state == THINKING));
         glBegin(GL_TRIANGLE_FAN);
-        for (int j = 0; j < 24; j++) {
-            glVertex2d(cos((2 * M_PI * j) / 24) * 32.0f,
-                       sin((2 * M_PI * j) / 24) * 32.0f);
-        }
+        for (int j = 0; j < 24; j++)
+            glVertex2d(cos(j * (2 * M_PI) / 24) * 32.0f,
+                       sin(j * (2 * M_PI) / 24) * 32.0f);
         glEnd();
 
         glColor3d(0.0f, 0.0f, 0.0f);
         glBegin(GL_LINE_STRIP);
-        for (int j = 0; j <= 24; j++) {
+        for (int j = 0; j <= 24; j++)
             glVertex2d(cos(j * (2 * M_PI) / 24) * 32.0f,
                        sin(j * (2 * M_PI) / 24) * 32.0f);
-        }
         glEnd();
 
         glPopMatrix();
@@ -71,12 +69,11 @@ void *callGlut() {
     glutCreateWindow("Jantar dos Filósofos");
 
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    glPointSize(6.0f);
     glLineWidth(2.0f);
     glEnable(GL_MULTISAMPLE);
 
     glutDisplayFunc(displayFunc);
-    glutTimerFunc(1000.0f / 60.0f, timer, 0);
+    glutTimerFunc(1000.0f / 30.0f, timer, 0);
     glutMainLoop();
 
     return NULL;
@@ -97,10 +94,7 @@ Philosopher **allocTable() {
         sem_init(&(phi[i]->chopsticks), 0, 0);
     }
     for (int i = 0; i < PHILOSOPHERS; i++) {
-        // Left -> (i + PHILOSOPHERS - 1) % PHILOSOPHERS
         phi[i]->l = phi[LEFT(i)];
-
-        // Right -> (i + 1) % PHILOSOPHERS
         phi[i]->r = phi[RIGHT(i)];
     }
 
@@ -121,10 +115,6 @@ void checkEat(Philosopher *phi) {
         printf("Philosopher %i is EATING!\n", phi->id);
         sem_post(&(phi->chopsticks));
     }
-}
-
-void think(Philosopher *phi) {
-    printf("Philosopher %i is THINKING!\n", phi->id);
 }
 
 void takeChopsticks(Philosopher *phi) {
@@ -152,7 +142,6 @@ void putChopsticks(Philosopher *phi) {
 
 void *callPhilosopher(void *phi) {
     while (1) {
-        think(phi);
         sleep(1);
         takeChopsticks(phi);
         sleep(2);
