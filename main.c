@@ -33,23 +33,23 @@ void displayFunc() {
     for (int i = 0; i < PHILOSOPHERS; i++) {
         glPushMatrix();
 
-        glTranslated(cos(i * (2 * M_PI) / PHILOSOPHERS) * 128.0f,
-                     sin(i * (2 * M_PI) / PHILOSOPHERS) * 128.0f, 0.0f);
+        glTranslated(cos(i * (2.0f * M_PI) / PHILOSOPHERS) * 128.0f,
+                     sin(i * (2.0f * M_PI) / PHILOSOPHERS) * 128.0f, 0.0f);
 
         glColor3d((double)(phi[i]->state == HUNGRY),
                   (double)(phi[i]->state == EATING),
                   (double)(phi[i]->state == THINKING));
         glBegin(GL_TRIANGLE_FAN);
         for (int j = 0; j < 24; j++)
-            glVertex2d(cos(j * (2 * M_PI) / 24) * 32.0f,
-                       sin(j * (2 * M_PI) / 24) * 32.0f);
+            glVertex2d(cos(j * (2.0f * M_PI) / 24) * 32.0f,
+                       sin(j * (2.0f * M_PI) / 24) * 32.0f);
         glEnd();
 
         glColor3d(0.0f, 0.0f, 0.0f);
         glBegin(GL_LINE_STRIP);
         for (int j = 0; j <= 24; j++)
-            glVertex2d(cos(j * (2 * M_PI) / 24) * 32.0f,
-                       sin(j * (2 * M_PI) / 24) * 32.0f);
+            glVertex2d(cos(j * (2.0f * M_PI) / 24) * 32.0f,
+                       sin(j * (2.0f * M_PI) / 24) * 32.0f);
         glEnd();
 
         glPopMatrix();
