@@ -18,7 +18,6 @@ typedef struct philosopher {
 
 Philosopher **allocTable();
 void deallocTable();
-void think(Philosopher *);
 void checkEat(Philosopher *);
 void takeChopsticks(Philosopher *);
 void putChopsticks(Philosopher *);
