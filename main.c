@@ -79,9 +79,8 @@ void *callGlut() {
     return NULL;
 }
 
-Philosopher **allocTable() {
-    Philosopher **phi =
-        (Philosopher **)malloc(sizeof(Philosopher *) * PHILOSOPHERS);
+void allocTable() {
+    phi = (Philosopher **)malloc(sizeof(Philosopher *) * PHILOSOPHERS);
 
     for (int i = 0; i < PHILOSOPHERS; i++) {
         phi[i] = (Philosopher *)malloc(sizeof(Philosopher));
@@ -97,8 +96,6 @@ Philosopher **allocTable() {
         phi[i]->l = phi[LEFT(i)];
         phi[i]->r = phi[RIGHT(i)];
     }
-
-    return phi;
 }
 
 void deallocTable() {
@@ -113,6 +110,7 @@ void checkEat(Philosopher *phi) {
         phi->r->state != EATING) {
         phi->state = EATING;
         printf("Philosopher %i is EATING!\n", phi->id);
+
         sem_post(&(phi->chopsticks));
     }
 }
@@ -142,10 +140,10 @@ void putChopsticks(Philosopher *phi) {
 
 void *callPhilosopher(void *phi) {
     while (1) {
-        sleep(1);
         takeChopsticks(phi);
         sleep(2);
         putChopsticks(phi);
+        sleep(1);
     }
 }
 
@@ -156,10 +154,8 @@ int main(int argc, char *argv[]) {
     pthread_t phi_thread_id[PHILOSOPHERS];
     pthread_t glut_thread_id;
 
-    // Generating the table where the Philosophers sit in :)
-    phi = allocTable();
+    allocTable();
 
-    // The dinner starts...
     for (int i = 0; i < PHILOSOPHERS; i++) {
         pthread_create(&phi_thread_id[i], NULL, callPhilosopher, phi[i]);
     }

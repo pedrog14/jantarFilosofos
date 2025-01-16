@@ -15,10 +15,3 @@ typedef struct philosopher {
     struct philosopher *l;
     struct philosopher *r;
 } Philosopher;
-
-Philosopher **allocTable();
-void deallocTable();
-void checkEat(Philosopher *);
-void takeChopsticks(Philosopher *);
-void putChopsticks(Philosopher *);
-void *callPhilosopher(void *);
