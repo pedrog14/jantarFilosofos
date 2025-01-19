@@ -29,7 +29,6 @@ void displayFunc() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    // Desenhando os Filósofos :)
     for (int i = 0; i < PHILOSOPHERS; i++) {
         glPushMatrix();
 
@@ -59,7 +58,7 @@ void displayFunc() {
 }
 
 void timer() {
-    glutTimerFunc(1000.0f / 60.0f, timer, 0);
+    glutTimerFunc(1000.0f / 30.0f, timer, 0);
     glutPostRedisplay();
 }
 
